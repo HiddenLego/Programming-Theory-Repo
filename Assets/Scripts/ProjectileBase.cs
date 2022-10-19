@@ -4,26 +4,52 @@ using UnityEngine;
 
 public class ProjectileBase : MonoBehaviour
 {
-    protected float speed = 10;
+    protected float speed = 30;
     protected bool isHittable = false;
+
     protected string destructionInput = "return";
+    protected Material projectileColor;
 
     protected void Start()
     {
-        // set color & input based on position?
+        // sets color and input based on position
+        if (transform.position.y < -10)
+        {
+            SetUpConditions(0, "down");
+        }
+        else if (transform.position.x < -10)
+        {
+            SetUpConditions(1, "left");
+        }
+        else if (transform.position.y > 10)
+        {
+            SetUpConditions(2, "up");
+        }
+        else if (transform.position.x > 10)
+        {
+            SetUpConditions(3, "right");
+        }
+        
+        GetComponent<Renderer>().material = projectileColor;
+    }
+
+    protected void SetUpConditions(int multiplier, string input) // Abstraction
+    {
+        projectileColor = PlayerManager.Instance.materials[multiplier];
+        destructionInput = input;
+        transform.Rotate(Vector3.forward * -90 * multiplier);
     }
 
     protected void Update()
     {
         if (Input.GetKeyDown(destructionInput) && isHittable)
         {
-            // give points, spawn object?
-            Destroy(gameObject);
+            HitProjectile();
         }
         Move();
     }
 
-    virtual protected void Move()
+    virtual protected void Move() // Polymorphism
     {
         transform.Translate(Vector3.up * Time.deltaTime * speed);
     }
@@ -35,7 +61,11 @@ public class ProjectileBase : MonoBehaviour
     protected void OnTriggerExit(Collider other)
     {
         isHittable = false;
-        // consequences
-        // Destroy(gameObject); ?
+    }
+
+    protected void HitProjectile() // Abstraction
+    {
+        PlayerManager.Instance.DelayedSpawn();
+        Destroy(gameObject);
     }
 }
