@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileBase : MonoBehaviour
 {
     protected float speed = 30;
+    protected int pointValue;
     protected bool isHittable = false;
 
     protected string destructionInput = "return";
@@ -33,7 +34,7 @@ public class ProjectileBase : MonoBehaviour
         GetComponent<Renderer>().material = projectileColor;
     }
 
-    protected void SetUpConditions(int multiplier, string input) // Abstraction
+    protected virtual void SetUpConditions(int multiplier, string input) // Abstraction
     {
         projectileColor = PlayerManager.Instance.materials[multiplier];
         destructionInput = input;
@@ -46,7 +47,10 @@ public class ProjectileBase : MonoBehaviour
         {
             HitProjectile();
         }
-        Move();
+        if (!PlayerManager.Instance.gameOver)
+        {
+            Move();
+        }
     }
 
     virtual protected void Move() // Polymorphism
@@ -66,6 +70,7 @@ public class ProjectileBase : MonoBehaviour
     protected void HitProjectile() // Abstraction
     {
         PlayerManager.Instance.DelayedSpawn();
+        PlayerManager.Instance.score += pointValue;
         Destroy(gameObject);
     }
 }
