@@ -9,7 +9,6 @@ public class MenuManager : MonoBehaviour
 
     public void BeginGame(string difficulty)
     {
-        SystemManager.Instance.difficulty = difficulty;
-        SceneManager.LoadScene("MainScene");
+        SystemManager.Instance.BeginGame(difficulty);
     }
 }

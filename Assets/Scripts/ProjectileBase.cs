@@ -34,7 +34,7 @@ public class ProjectileBase : MonoBehaviour
         GetComponent<Renderer>().material = projectileColor;
     }
 
-    protected virtual void SetUpConditions(int multiplier, string input) // Abstraction
+    protected virtual void SetUpConditions(int multiplier, string input) // Abstraction & Polymorphism
     {
         projectileColor = PlayerManager.Instance.materials[multiplier];
         destructionInput = input;
@@ -69,8 +69,6 @@ public class ProjectileBase : MonoBehaviour
 
     protected void HitProjectile() // Abstraction
     {
-        PlayerManager.Instance.DelayedSpawn();
-        PlayerManager.Instance.score += pointValue;
-        Destroy(gameObject);
+        PlayerManager.Instance.ScorePoint(pointValue, gameObject);
     }
 }

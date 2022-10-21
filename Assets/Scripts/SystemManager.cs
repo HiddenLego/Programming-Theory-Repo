@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SystemManager : MonoBehaviour
 {
@@ -17,5 +18,16 @@ public class SystemManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void BeginGame(string difficulty)
+    {
+        SystemManager.Instance.difficulty = difficulty;
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("TitleScreen");
     }
 }
