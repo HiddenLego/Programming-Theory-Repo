@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SystemManager : MonoBehaviour
 {
-    public static SystemManager Instance;
+    public static SystemManager Instance { get; private set; } // Encapsulation
 
-    public string difficulty;
+    private string difficulty_Actual; // Encapsulation
+    public string difficulty { 
+        get { return difficulty_Actual; } 
+        set { if (value == "Easy" || value == "Normal" || value == "Hard") { difficulty_Actual = value; } } }
 
     private void Awake()
     {

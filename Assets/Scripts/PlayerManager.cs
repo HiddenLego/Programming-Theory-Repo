@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager Instance;
+    public static PlayerManager Instance { get; private set; } // Encapsulation
 
-    public int hitsLeft;
-    public bool gameOver = false;
+    public int hitsLeft { get; private set; } // Encapsulation
+    public bool gameOver { get; private set; } = false; // Encapsulation
 
     private int score;
     private int seconds;
@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     private float maxRespawnDelay = 2.5f;
 
     [SerializeField] private List<GameObject> projectiles;
-    [SerializeField] public List<Material> materials;
+    [SerializeField] public List<Material> materials { get; private set; } // Encapsulation
 
     [SerializeField] private TextMeshProUGUI displayText;
     [SerializeField] private TextMeshProUGUI pointsText;
