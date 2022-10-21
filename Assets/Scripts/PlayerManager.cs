@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     private float maxRespawnDelay = 2.5f;
 
     [SerializeField] private List<GameObject> projectiles;
-    [SerializeField] public List<Material> materials { get; private set; } // Encapsulation
+    [SerializeField] public List<Material> materials;
 
     [SerializeField] private TextMeshProUGUI displayText;
     [SerializeField] private TextMeshProUGUI pointsText;
